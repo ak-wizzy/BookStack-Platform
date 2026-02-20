@@ -17,8 +17,9 @@ services:
       - DB_DATABASE=${DB_DATABASE}
     volumes:
       - ./config:/config
+
     ports:
-      - "6875:6875"
+      - "6875:80"               #host:container port
     depends_on:
       - bookstack_db
     networks:
