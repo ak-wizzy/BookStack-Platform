@@ -1,0 +1,47 @@
+services:
+  bookstack:
+    image: lscr.io/linuxserver/bookstack:latest
+    container_name: bookstack-platform
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - APP_URL=${APP_URL}
+      - APP_KEY=${APP_KEY}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=${DB_DATABASE}
+    volumes:
+      - ./config:/config
+    ports:
+      - "6875:6875"
+    depends_on:
+      - bookstack_db
+    networks:
+      - reverse-proxy           # seen by reverse proxy
+      - db-network              # talks to DB
+
+  bookstack_db:
+    image: mariadb:11
+    container_name: bookstack_db
+    restart: unless-stopped
+    environment:
+      - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+      - MARIADB_DATABASE=${DB_DATABASE}
+      - MARIADB_USER=${DB_USERNAME}
+      - MARIADB_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - ./db:/var/lib/mysql
+    networks:
+      - db-network
+
+networks:
+  db-network:
+    driver: bridge
+  reverse-proxy:
+    external: true
