@@ -15,6 +15,17 @@ services:
       - DB_USERNAME=${DB_USERNAME}
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_DATABASE=${DB_DATABASE}
+
+      - AUTH_METHOD=oidc
+      - OIDC_NAME=EntraID
+      - OIDC_DISPLAY_NAME=Login with Entra ID
+      - OIDC_CLIENT_ID=${BOOKSTACK_OIDC_CLIENT_ID}
+      - OIDC_CLIENT_SECRET=${BOOKSTACK_OIDC_CLIENT_SECRET}
+      - OIDC_ISSUER=https://login.microsoftonline.com/${BOOKSTACK_TENANT_ID}/v2.0
+      - OIDC_USER_TO_GROUPS=true
+      - OIDC_EMAIL_CLAIM=email
+      - OIDC_DISPLAY_NAME_CLAIM=name
+      
     volumes:
       - ./config:/config
     
