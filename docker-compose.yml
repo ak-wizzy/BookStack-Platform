@@ -16,7 +16,7 @@ services:
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_DATABASE=${DB_DATABASE}
 
-      - AUTH_METHOD=oidc
+      - AUTH_METHOD=standard
       - OIDC_NAME=EntraID
       - OIDC_DISPLAY_NAME=Login with Entra ID
       - OIDC_CLIENT_ID=${BOOKSTACK_OIDC_CLIENT_ID}
