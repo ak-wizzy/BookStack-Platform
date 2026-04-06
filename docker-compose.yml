@@ -28,6 +28,15 @@ services:
       - OIDC_EMAIL_CLAIM=email
       - OIDC_DISPLAY_NAME_CLAIM=given_name|family_name
 
+      - MAIL_DRIVER=smtp
+      - MAIL_HOST=${MAIL_HOST_NAME}
+      - MAIL_PORT=25
+      - MAIL_USERNAME=${MAIL_USERNAME}
+      - MAIL_PASSWORD=${MAIL_PASSWORD}
+      - MAIL_ENCRYPTION=null
+      - MAIL_FROM=${SMTP_FROM_ADDRESS}
+      - MAIL_FROM_NAME=${SMTP_FROM_NAME}
+
     volumes:
       - ./config:/config
     
@@ -55,14 +64,7 @@ services:
       - MARIADB_DATABASE=${DB_DATABASE}
       - MARIADB_USER=${DB_USERNAME}
       - MARIADB_PASSWORD=${DB_PASSWORD}
-      - MAIL_DRIVER=smtp
-      - MAIL_HOST=${MAIL_HOST_NAME}
-      - MAIL_PORT=25
-      - MAIL_USERNAME=${MAIL_USERNAME}
-      - MAIL_PASSWORD=${MAIL_PASSWORD}
-      - MAIL_ENCRYPTION=null
-      - MAIL_FROM=${SMTP_FROM_ADDRESS}
-      - MAIL_FROM_NAME=${SMTP_FROM_NAME}
+
     volumes:
       - ./db:/var/lib/mysql
     networks:
